@@ -1,31 +1,27 @@
-import { EditorDOCX } from './editores/editor-docx';
-import { EditorPDF } from './editores/editor-pdf';
-import { EditorTXT } from './editores/editor-txt';
-import { EditorXLSX } from './editores/editor-xlsx';
+import { PizzaDirector } from './pizzaDirector';
+import { MargheritaPizzaBuilder } from './margheritaPizzaBuilder';
+import { PepperoniPizzaBuilder } from './pepperoniPizzaBuilder';
 
-const editorPDF = new EditorPDF();
-const pdf = editorPDF.gerenciarArquivo();
+console.log("\nPizza Margherita:");
+const margheritaPizzaBuilder = new MargheritaPizzaBuilder();
+const directorMargherita = new PizzaDirector(margheritaPizzaBuilder);
+console.log(directorMargherita.makeMargheritaPizza().display());
 
-pdf.abrir();
-pdf.salvar();
-console.log('---');
+console.log("\nPizza Pepperoni:");
+const pepperoniPizzaBuilder = new PepperoniPizzaBuilder();
+const directorPepperoni = new PizzaDirector(pepperoniPizzaBuilder);
+console.log(directorPepperoni.makePepperoniPizza().display());
 
-const editorDOCX = new EditorDOCX();
-const docx = editorDOCX.gerenciarArquivo();
+console.log("\nPizza Personalizada:");
+const personalizadaPizzaBuilder = new PepperoniPizzaBuilder();
+const directorPersonalizada = new PizzaDirector(personalizadaPizzaBuilder);
 
-docx.abrir();
-docx.salvar();
-console.log('---');
+personalizadaPizzaBuilder.setSize('grande')
+  .setDough('recheada')
+  .addTopping('Queijo')
+  .addTopping('Azeitonas')
+  .addTopping('Cogumelos');
 
-const editorXLSX = new EditorXLSX();
-const xlsx = editorXLSX.gerenciarArquivo();
 
-xlsx.abrir();
-xlsx.salvar();
-console.log('---');
-
-const editorTXT = new EditorTXT();
-const txt = editorTXT.gerenciarArquivo();
-
-txt.abrir();
-txt.salvar();
+const personalizadaPizza = personalizadaPizzaBuilder.getResult();
+console.log(personalizadaPizza.display());
